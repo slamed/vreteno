@@ -68,10 +68,11 @@ const pink = new StandardMaterial("Pink", scene);
 pink.diffuseColor = new Color3(0.92, 0.48, 0.84);
 //box.material = pink;
 
-var vreteno;
-var telo;
-var remenice;
+var vreteno = MeshBuilder.CreateCylinder("freza", { diameter: 0.00001 });
+var telo = MeshBuilder.CreateCylinder("freza", { diameter: 0.00001 });
+var remenice = MeshBuilder.CreateCylinder("freza", { diameter: 0.00001 });
 var rychlost = 0.45;
+var valec = MeshBuilder.CreateCylinder("freza", { diameter: 1 });
 
 SceneLoader.ImportMesh("", "public/", "vreteno.glb", scene, function (
   noveModely
@@ -81,10 +82,10 @@ SceneLoader.ImportMesh("", "public/", "vreteno.glb", scene, function (
   vreteno.position.z = 2;
   vreteno.position.x = 0.99;
   vreteno.rotate(new Vector3(0, 1, 0), Math.PI);
-  //scene.registerBeforeRender(function () {
-  //  vreteno.rotation.x += rychlost;
-  //  vreteno.rotation.y += 10;
-  //});
+  scene.registerBeforeRender(function () {
+    vreteno.rotation.x += rychlost;
+    vreteno.rotation.y += 10;
+  });
 });
 
 SceneLoader.ImportMesh("", "public/", "staticky.glb", scene, function (
@@ -120,7 +121,7 @@ const light = new DirectionalLight(
 
 // Our beforeRender function
 scene.registerBeforeRender(function () {
-  //vreteno.rotation.x += 0.03;
+  valec.rotation.x += 0.04;
   box.rotation.x += 0.03;
   //box.rotation.y += 0.04;
 });
