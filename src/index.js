@@ -5,20 +5,11 @@ import "./styles.css"; // keep this here!
 import {
   Engine,
   Scene,
-  UniversalCamera,
   ArcRotateCamera,
   MeshBuilder,
-  StandardMaterial,
   DirectionalLight,
   Vector3,
-  Axis,
-  Space,
-  Color3,
-  SceneLoader,
-  DeviceOrientationCamera,
-  Mesh,
-  Animation,
-  SixDofDragBehavior
+  SceneLoader
 } from "@babylonjs/core";
 import "@babylonjs/inspector";
 
@@ -61,30 +52,22 @@ const light1 = new DirectionalLight(
 // Create a 1x1 cube
 // Note: there is an odler method called simply "Mesh". It is recommended
 // to use the newer "MeshBuilder" instead.
-var box = MeshBuilder.CreateBox("", {});
-
-// Make it pink
-const pink = new StandardMaterial("Pink", scene);
-pink.diffuseColor = new Color3(0.92, 0.48, 0.84);
-//box.material = pink;
 
 var vreteno = MeshBuilder.CreateCylinder("freza", { diameter: 0.00001 });
 var telo = MeshBuilder.CreateCylinder("freza", { diameter: 0.00001 });
 var remenice = MeshBuilder.CreateCylinder("freza", { diameter: 0.00001 });
-var rychlost = 0.45;
-var valec = MeshBuilder.CreateCylinder("freza", { diameter: 1 });
+var rychlost = 0.2;
 
 SceneLoader.ImportMesh("", "public/", "vreteno.glb", scene, function (
   noveModely
 ) {
   vreteno = noveModely[0];
-  vreteno.position.y = 0.75;
-  vreteno.position.z = 2;
-  vreteno.position.x = 0.99;
+  vreteno.position.y = 0.73;
+  vreteno.position.z = 2.0101;
+  vreteno.position.x = 0.85;
   vreteno.rotate(new Vector3(0, 1, 0), Math.PI);
   scene.registerBeforeRender(function () {
-    vreteno.rotation.x += rychlost;
-    vreteno.rotation.y += 10;
+    vreteno.rotate(new Vector3(1, 0, 0), rychlost);
   });
 });
 
@@ -107,7 +90,7 @@ SceneLoader.ImportMesh("", "public/", "Remenice_mala.glb", scene, function (
   remenice.position.x = 1.6;
   remenice.rotate(new Vector3(1, 0, 1), Math.PI);
   scene.registerBeforeRender(function () {
-    remenice.rotation.x += 2 * rychlost;
+    remenice.rotate(new Vector3(0, 0, 1), 2 * rychlost);
   });
 });
 // And add a light source. Note that it works slightly differently than in
@@ -120,11 +103,7 @@ const light = new DirectionalLight(
 );
 
 // Our beforeRender function
-scene.registerBeforeRender(function () {
-  valec.rotation.x += 0.04;
-  box.rotation.x += 0.03;
-  //box.rotation.y += 0.04;
-});
+scene.registerBeforeRender(function () {});
 
 // Register a render loop to repeatedly render the scene
 engine.runRenderLoop(function () {
