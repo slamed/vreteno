@@ -96,11 +96,6 @@ SceneLoader.ImportMesh("", "public/", "Remenice_mala.glb", scene, function (
 // And add a light source. Note that it works slightly differently than in
 // three.js. The Vector here is not the light's position, but the direction
 // it points to.
-const light = new DirectionalLight(
-  "DirectionalLight",
-  new Vector3(-1, -1, -1),
-  scene
-);
 
 // Our beforeRender function
 scene.registerBeforeRender(function () {});
